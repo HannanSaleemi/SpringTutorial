@@ -5,6 +5,9 @@ import id.hanntr.demo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +27,7 @@ public class PersonController {
     // POST request - /api/v1/person
     @PostMapping
     // Take the Request Body and put the information in Person
-    public void addPerson(@RequestBody Person person) {
+    public void addPerson(@Valid @NotNull @RequestBody Person person) {
         personService.addPerson(person);
     }
 
@@ -51,8 +54,9 @@ public class PersonController {
         personService.deletePerson(id);
     }
 
+    // Specify that Body is valid
     @PutMapping(path = "{id}")
-    public void updatePerson(@PathVariable("id") UUID id, @RequestBody Person personToUpdate) {
+    public void updatePerson(@PathVariable("id") UUID id, @Valid @NotNull @RequestBody Person personToUpdate) {
         personService.updatePerson(id, personToUpdate);
     }
 }
