@@ -18,7 +18,7 @@ public class PersonService {
 
     // Inject - Autowiring into the interface PersonDao
     @Autowired
-    public PersonService(@Qualifier("fakeDao") PersonDao personDao) {
+    public PersonService(@Qualifier("postgres") PersonDao personDao) {
         this.personDao = personDao;
     }
 
