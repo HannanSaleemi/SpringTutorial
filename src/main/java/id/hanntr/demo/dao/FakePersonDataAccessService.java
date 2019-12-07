@@ -13,7 +13,7 @@ import java.util.UUID;
 @Repository("fakeDao")
 public class FakePersonDataAccessService implements PersonDao {
 
-    // Define list
+    // Define list as our in memory DB
     // To add a person, add then to the DB List
     private static List<Person> DB = new ArrayList<>();
 
@@ -39,9 +39,20 @@ public class FakePersonDataAccessService implements PersonDao {
 
     @Override
     public int updatePersonById(UUID id, Person person) {
-        return 0;
+        return selectPersonById(id)
+                .map(p -> {
+                    int indexOfPersonToDelete = DB.indexOf(person);
+                    if (indexOfPersonToDelete >= 0) {
+                        // Found someone
+                        DB.set(indexOfPersonToDelete, person);
+                        return 1;
+                    }
+                    return 0;
+                })
+                .orElse(0);
     }
 
+    // Inert new person into DB
     @Override
     public int insertPerson(UUID id, Person person) {
         DB.add(new Person(id, person.getName()));
