@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class PostgresDataSource {
+public class PostgresDatasource {
 
     // Instantiating this HikariDataSource as a Bean and then create a configuration file containing the credentials
     @Bean
