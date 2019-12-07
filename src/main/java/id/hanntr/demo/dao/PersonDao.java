@@ -3,6 +3,7 @@ package id.hanntr.demo.dao;
 import id.hanntr.demo.model.Person;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface PersonDao {
@@ -18,6 +19,15 @@ public interface PersonDao {
 
     // Return all people
     List<Person> selectAllPeople();
+
+    // Select person by Id
+    Optional<Person> selectPersonById(UUID id);
+
+    // Delete a person
+    int deletePersonById(UUID id);
+
+    // Update a person
+    int updatePersonById(UUID id, Person person);
 
 
 }
