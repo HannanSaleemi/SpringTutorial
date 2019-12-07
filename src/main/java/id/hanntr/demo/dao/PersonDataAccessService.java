@@ -29,7 +29,6 @@ public class PersonDataAccessService implements PersonDao {
     public List<Person> selectAllPeople() {
         final String sql = "SELECT id, name FROM Person";
         return jdbcTemplate.query(sql, (resultSet, i) -> {
-
             // Result set are the results - its mapping through the results
             // We get the values from columnLabels and then return a new Person object
             UUID id = UUID.fromString(resultSet.getString("id"));
@@ -40,7 +39,22 @@ public class PersonDataAccessService implements PersonDao {
 
     @Override
     public Optional<Person> selectPersonById(UUID id) {
-        return Optional.empty();
+        // Id is passed in the SQL Query bit
+        final String sql = "SELECT id, name FROM Person WHERE id = ?";
+
+        Person person = jdbcTemplate.queryForObject(
+                sql,
+                new Object[]{id},
+                (resultSet, i) -> {
+                    // Result set are the results - its mapping through the results
+                    // We get the values from columnLabels and then return a new Person object
+                    UUID personId = UUID.fromString(resultSet.getString("id"));
+                    String name = resultSet.getString("name");
+                    return new Person(personId,name);
+                });
+
+        // Nullable as we may not find anyone with id
+        return Optional.ofNullable(person);
     }
 
     @Override
