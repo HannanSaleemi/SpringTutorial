@@ -3,10 +3,9 @@ package id.hanntr.demo.api;
 import id.hanntr.demo.model.Person;
 import id.hanntr.demo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 // Make REST Resource
 @RequestMapping("/api/v1/person")
@@ -26,5 +25,12 @@ public class PersonController {
     // Take the Request Body and put the information in Person
     public void addPerson(@RequestBody Person person) {
         personService.addPerson(person);
+    }
+
+    // Retrieve people
+    // GET Request
+    @GetMapping
+    public List<Person> getAllPeople() {
+        return personService.getAllPeople();
     }
 }

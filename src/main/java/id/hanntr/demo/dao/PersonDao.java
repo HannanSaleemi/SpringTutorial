@@ -2,6 +2,7 @@ package id.hanntr.demo.dao;
 
 import id.hanntr.demo.model.Person;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface PersonDao {
@@ -14,5 +15,9 @@ public interface PersonDao {
         UUID id = UUID.randomUUID();
         return insertPerson(id, person);
     }
+
+    // Return all people
+    List<Person> selectAllPeople();
+
 
 }
