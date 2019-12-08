@@ -1,4 +1,4 @@
-package datasource;
+package id.hanntr.demo.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
